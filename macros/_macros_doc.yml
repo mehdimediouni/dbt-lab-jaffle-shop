@@ -1,0 +1,11 @@
+
+macros:
+  - name: cents_to_dollars
+    description: "Convertit un montant de cents en dollars en divisant par 100 et applique un arrondi."
+    arguments:
+      - name: column_name
+        type: string
+        description: "Le nom de la colonne contenant les montants en cents (ex: price_cents)."
+      - name: decimal_places
+        type: integer
+        description: "Le nombre de décimales pour l'arrondi. Par défaut à 2."
