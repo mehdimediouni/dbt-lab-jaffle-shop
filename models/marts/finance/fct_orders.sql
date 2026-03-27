@@ -1,9 +1,14 @@
+{{
+    config(
+        materialized='incremental'
+    )
+}}
 with orders as  (
-    select * from {{ ref ('stg_jeffle_shop__orders' )}}
+    select * from {{ ref ('stg_jaffle_shop__orders' )}}
 ),
 
 payments as (
-    select * from {{ ref ('stg_stripe__payments') }}
+    select * from {{ ref ('stg_stripe__payment') }}
 ),
 
 order_payments as (
@@ -28,3 +33,9 @@ order_payments as (
 )
 
 select * from final
+
+
+{% if is_incremental() %}
+where
+order_date >= (select max(order_date) from {{this}})
+{% endif %}
